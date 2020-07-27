@@ -1,4 +1,4 @@
-#Instagram contests tool
+# Instagram contests tool
 
 It can help you to find a winner of the contest where the rules are:  
 `1. Mention your friend`  
@@ -16,7 +16,7 @@ To get the Winner you will have to enter `media url` and `username`  of that med
   You can use [Notepad++](https://notepad-plus-plus.org/downloads/) to create this file for Windows,
 or [CotEditor](https://coteditor.com/) for MacOS.
   
-##### This is an example of how it looks like inside of your .env file. 
+#### This is an example of how it looks like inside of your .env file. 
 (You can choose your own variable names if you want)  
 ```
 INSTAGRAM_USERNAME=YOURuserName

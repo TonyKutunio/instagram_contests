@@ -7,15 +7,23 @@ It can help you to find a winner of the contest where the rules are:
 
 To get the Winner you will have to enter **MEDIA_URL** and **USERNAME** of that media owner to your console and you will get the winner.
 
-For example you entered in your console:
+To get the result you may also need to mention your current python version.
+You can get it by typing in your console:
+ ```$ python --version``` You may see something like: Python 3.8.0.
+Your version may differ.
+
+So you may have to enter something like:
+```$ python3 main.py url usaername ```
+
+#### Example
 ```
-python main.py media_url username  
-```
-   
-And a result you will get:
+$ python(or python3) main.py media_url username  
+``` 
+#### And a result you will get:
 ```
 The winner is:>  "winners_username"
 ```
+
 ### setting up .env variables   
   You will  have to set your environment variables up with **.env** file where you going to store
   your **PASSWORD AND USERNAME**.  

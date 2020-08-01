@@ -6,7 +6,6 @@ import random
 import argparse
 
 
-
 def check_if_user_exists(username):
     user_id = bot.get_user_id_from_username(username)
     return bool(user_id)

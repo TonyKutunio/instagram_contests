@@ -6,7 +6,6 @@ import random
 import argparse
 
 
-
 def get_all_comments_data(media_url):
     media_id = bot.get_media_id_from_link(media_url)
     media_comments_data = bot.get_media_comments(media_id)
@@ -20,10 +19,9 @@ def get_mentioned_usernames(comment_text):
 
 def check_if_user_exists(username):
     user_id = bot.get_user_id_from_username(username)
-    if user_id == None:
+    if not user_id:
         return False
-    else:
-        return True
+    return True
 
 
 def get_right_commenters(all_comments_data):
@@ -39,22 +37,8 @@ def get_right_commenters(all_comments_data):
     return right_commenters
 
 
-def get_media_likers(media_id):
-    media_likers = bot.get_media_likers(media_id)
-    return media_likers
-
-
-def get_commenters_who_liked(media_likers, right_commenters_id):
+def get_liked_and_followed(media_likers, right_commenters_id, followers_of_media_author):
     commenters_who_liked = set(media_likers) & set(right_commenters_id)
-    return commenters_who_liked
-
-
-def get_user_followers(media_authors_username):
-    user_followers = bot.get_user_followers(media_authors_username)
-    return user_followers
-
-
-def get_commenters_who_followed(commenters_who_liked, followers_of_media_author):
     commenters_who_followed = set(commenters_who_liked) & set(followers_of_media_author)
     return list(commenters_who_followed)
 
@@ -72,14 +56,13 @@ def get_argument_parser():
                     '2. Media authors username'
                     '3. friends_mentions_number ')
 
-    parser.add_argument(media_url,
+    parser.add_argument('url',
                         type=str,
                         help='The url of instagram post')
-    parser.add_argument(media_authors_username,
+    parser.add_argument('username',
                         type=str,
                         help='The Instagram post authors username')
-    args = parser.parse_args()
-    return args
+    return parser
 
 
 if __name__ == '__main__':
@@ -90,23 +73,20 @@ if __name__ == '__main__':
     bot.login(username=instagram_username,
               password=instagram_password)
 
-
-    args = get_argument_parser()
+    parser = get_argument_parser()
+    args = parser.parse_args()
     media_url = args.url
     media_authors_username = args.username
 
-
     all_comments_data, media_id = get_all_comments_data(media_url)
+    media_likers = bot.get_media_likers(media_id)
+    followers_of_media_author = bot.get_user_followers(media_authors_username)
+
     right_commenters_id = get_right_commenters(all_comments_data)
-
-    media_likers = get_media_likers(media_id)
-    commenters_who_liked = get_commenters_who_liked(media_likers,
-                                                           right_commenters_id)
-
-    followers_of_media_author = get_user_followers(media_authors_username)
-    commenters_who_followed = get_commenters_who_followed(commenters_who_liked,
-                                                      followers_of_media_author)
+    commenters_who_followed = get_liked_and_followed(media_likers,
+                                                     right_commenters_id,
+                                                     followers_of_media_author)
 
     winner = get_winner(commenters_who_followed)
 
-    print(winner)
+    print('The Winner is:> ' + winner)

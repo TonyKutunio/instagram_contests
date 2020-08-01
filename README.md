@@ -1,4 +1,4 @@
-#Instagram contests tool
+# Instagram contests tool
 
 It can help you to find a winner of the contest where the rules are:  
 1. Mention your friend  
